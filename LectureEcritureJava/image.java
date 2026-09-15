@@ -1,6 +1,7 @@
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 
 public class image {
     private int width;
@@ -62,6 +63,96 @@ public class image {
             e.printStackTrace();
         }
     }
+
+    /**
+ * Sauvegarde l'image au format binaire PPM (P6)
+ */
+public void write_bin(String filename) throws IOException {
+    FileOutputStream fos = new FileOutputStream(filename);
+
+    // Header PPM
+    String header = "P6\n" + width + " " + height + "\n255\n";
+    fos.write(header.getBytes());
+
+    // Pixels : 3 octets par pixel (R, G, B)
+    for (int y = 0; y < height; y++) {
+        for (int x = 0; x < width; x++) {
+            fos.write(pixels[y][x][0]);
+            fos.write(pixels[y][x][1]);
+            fos.write(pixels[y][x][2]);
+        }
+    }
+
+    fos.close();
+
+    System.out.println("Image PPM binaire créée avec succès !");
+}
+
+private static String readToken(FileInputStream fis) throws IOException {
+    StringBuilder token = new StringBuilder();
+    int c;
+
+    // Ignorer les espaces
+    do {
+        c = fis.read();
+    } while (c != -1 && Character.isWhitespace((char) c));
+
+    // Lire le token
+    while (c != -1 && !Character.isWhitespace((char) c)) {
+        token.append((char) c);
+        c = fis.read();
+    }
+
+    return token.toString();
+}
+
+/**
+ * Lit une image au format binaire PPM (P6)
+ */
+public static image read_bin(String filename) throws IOException {
+    FileInputStream fis = new FileInputStream(filename);
+
+    // Lecture du header
+    String format = readToken(fis);
+
+    if (!format.equals("P6")) {
+        fis.close();
+        throw new IOException("Le fichier n'est pas au format P6");
+    }
+
+    int width = Integer.parseInt(readToken(fis));
+    int height = Integer.parseInt(readToken(fis));
+    int maxColor = Integer.parseInt(readToken(fis));
+
+    if (maxColor != 255) {
+        fis.close();
+        throw new IOException("La valeur maximale doit être 255");
+    }
+
+    image img = new image(width, height);
+
+    // Lecture des pixels binaires
+    for (int y = 0; y < height; y++) {
+        for (int x = 0; x < width; x++) {
+
+            int r = fis.read();
+            int g = fis.read();
+            int b = fis.read();
+
+            if (r == -1 || g == -1 || b == -1) {
+                fis.close();
+                throw new IOException("Fichier PPM incomplet");
+            }
+
+            img.setPixel(x, y, r, g, b);
+        }
+    }
+
+    fis.close();
+
+    return img;
+}
+
 }
 
 

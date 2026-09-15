@@ -13,6 +13,12 @@ public class Gradient {
         try {
             img.save_txt("gradient.ppm");
             System.out.println("Dégradé créé avec succès !");
+
+            // Test du binaire
+            img.write_bin("copy.ppm");
+            image copie = image.read_bin("imput.ppm");
+            copie.save_txt("gradient_bin_copie.ppm");
+            System.out.println("Test binaire terminé !");
         } catch (Exception e) {
             System.err.println("Erreur lors de la création du dégradé : " + e.getMessage());
         }
