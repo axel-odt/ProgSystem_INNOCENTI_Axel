@@ -14,7 +14,6 @@ public class Gradient {
             img.save_txt("gradient.ppm");
             System.out.println("Dégradé créé avec succès !");
 
-            // Test du binaire
             img.write_bin("copy.ppm");
             image copie = image.read_bin("imput.ppm");
             copie.save_txt("gradient_bin_copie.ppm");
