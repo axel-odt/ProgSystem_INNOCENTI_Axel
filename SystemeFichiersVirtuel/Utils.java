@@ -59,7 +59,7 @@ public class Utils {
             int maxLength) {
 
         // TODO:
-        // Lire jusqu'au premier octet nul
+        // Lire jusqu'au premier octet null
         // ou jusqu'à maxLength.
 
         return "";
