@@ -38,6 +38,7 @@ public class Utils {
                       | (b2 & 0xFF));
     }
 
+    //Partie 2
     public static int writeLong(byte[] memory, int offset, long value) {
     // TODO: Écrire les 8 octets du long en big-endian.
     return 8;

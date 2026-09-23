@@ -40,7 +40,7 @@ public class TestRunner {
         System.out.println("[OK] Étape 2 validée !");
     }
 
-    
+    //Partie 2
     public static void testStep3() {
         System.out.println("=== TEST ÉTAPE 3 : Utils Long & String ===");
 
