@@ -38,15 +38,25 @@ public class Utils {
                       | (b2 & 0xFF));
     }
 
-    //Partie 2
     public static int writeLong(byte[] memory, int offset, long value) {
-    // TODO: Écrire les 8 octets du long en big-endian.
-    return 8;
+                memory[offset]     = (byte) (value >>> 56);
+                memory[offset + 1] = (byte) (value >>> 48);
+                memory[offset + 2] = (byte) (value >>> 40);
+                memory[offset + 3] = (byte) (value >>> 32);
+                memory[offset + 4] = (byte) (value >>> 24);
+                memory[offset + 5] = (byte) (value >>> 16);
+                memory[offset + 6] = (byte) (value >>> 8);
+                memory[offset + 7] = (byte) value;
+
+                return 8;
     }
 
     public static long readLong(byte[] memory, int offset) {
-        // TODO: Reconstituer le long.
-        return 0L;
+        long result = 0;
+        for (int i = 0; i < 8; i++) {
+            result = (result << 8) | (memory[offset + i] & 0xFFL);
+        }
+        return result;
     }
 
     public static int writeString(
@@ -55,10 +65,20 @@ public class Utils {
             String str,
             int maxLength) {
 
-        // TODO:
-        // 1. Convertir la chaîne en octets.
-        // 2. Copier les octets sans dépasser maxLength.
-        // 3. Nettoyer le reste de la zone avec des zéros.
+        byte[] bytes = str.getBytes();
+        
+        int bytesToWrite = bytes.length;
+        if (bytesToWrite > maxLength) {
+            bytesToWrite = maxLength;
+        }
+
+        for (int i = 0; i < bytesToWrite; i++) {
+            memory[offset + i] = bytes[i];
+        }
+
+        for (int i = bytesToWrite; i < maxLength; i++) {
+            memory[offset + i] = 0;
+        }
 
         return maxLength;
     }
@@ -68,11 +88,12 @@ public class Utils {
             int offset,
             int maxLength) {
 
-        // TODO:
-        // Lire jusqu'au premier octet null
-        // ou jusqu'à maxLength.
+        int length = 0;
+        while (length < maxLength && memory[offset + length] != 0) {
+            length++;
+        }
 
-        return "";
+        return new String(memory, offset, length);
     }
 
 }
