@@ -31,13 +31,11 @@ public class MemoryManager {
 
     private void initializeFilesystem() {
         writeSuperblock();
+        
+       for (int i = 0; i <= 128; i++) {
+            memory[BITMAP_OFFSET + i] = 1;
 
-        for (int i = 0; i < 129; i++) {
-            int byteIndex = BITMAP_OFFSET + (i / 8);
-            int bitIndex = 7 - (i % 8);
-            memory[byteIndex] |= (byte) (1 << bitIndex);
         }
-
     }
 
     private void writeSuperblock() {
