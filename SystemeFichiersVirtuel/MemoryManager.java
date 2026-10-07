@@ -32,15 +32,14 @@ public class MemoryManager {
     private void initializeFilesystem() {
         writeSuperblock();
         
-       for (int i = 0; i <= 128; i++) {
-            memory[BITMAP_OFFSET + i] = 1;
+       for (int i = 0; i <= 16; i++) {
+            setBlockUsed(i, true);
 
         }
     }
 
     private void writeSuperblock() {
 
-        Utils.writeString(memory, SUPERBLOCK_OFFSET, "MYFS1.0", 16);
 
         Utils.writeString(
                 memory,
@@ -83,11 +82,9 @@ public class MemoryManager {
         int offset = BITMAP_OFFSET + byteIndex;
 
         if (used) {
-                // TODO:
-                // Positionner le bit à 1.
+
 		memory[offset] |= (1 << bitPosition);
         } else {
-                // TODO:
                 // Positionner le bit à 0.
 		memory[offset] &= ~(1 << bitPosition);
         }
@@ -101,25 +98,17 @@ public class MemoryManager {
                 return -1;
         }
 
-        // TODO:
-        // Calculer byteIndex.
-        // Calculer bitPosition.
-        // Lire le bit.
+     
         int byteIndex = blockNumber / 8;
         int bitPosition = blockNumber % 8;
         int offset = BITMAP_OFFSET + byteIndex;
 
-        return (memory[offset] >> bitPosition) & 1;
+        return (((memory[offset] & 0xFF) >> bitPosition) & 1);        
         }
 
         public int allocateBlock() {
 
-        // TODO:
-        // Parcourir les blocs de données :
-        // 129 .. NUM_BLOCKS - 1.
-        //
-        // Retourner le premier bloc libre.
-        // Le marquer immédiatement comme utilisé.
+
         for (int i= 129; i < NUM_BLOCKS; i++) {
                 if(isBlockUsed(i) == 0) {
                     setBlockUsed(i, true);

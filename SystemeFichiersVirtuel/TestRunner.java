@@ -5,6 +5,7 @@ public class TestRunner {
         testStep3();
         testStep4();
         testStep5();
+        testStep6();
     }
 
     public static void testStep2() {                                          
@@ -217,6 +218,4 @@ public class TestRunner {
 
         System.out.println("[OK] Étape 6 validée !");
     }
-
-
 }
