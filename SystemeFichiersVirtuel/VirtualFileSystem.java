@@ -38,8 +38,8 @@ public class VirtualFileSystem {
             return false;
         }
 
-        // Construire l'inode.
-        // L'initialiser comme fichier vide.
+        // Construire l'inode
+        // L'initialiser comme fichier vide
         Inode inode = new Inode(memoryManager, inodeNum);
         long currentTime = System.currentTimeMillis();
         int[] directPointers = new int[Inode.DIRECT_POINTERS];

@@ -53,8 +53,7 @@ public class Inode {
             short permissions,
             int linkCount) {
 
-        byte[] memory =
-                memoryManager.getFilesystemMemory();
+        byte[] memory = memoryManager.getFilesystemMemory();
 
         int offset = getInodeOffset();
 
