@@ -74,8 +74,7 @@ public class MemoryManager {
     }
 
     public boolean setBlockUsed(int blockNumber, boolean used) {
-        if (blockNumber < 0 ||
-                blockNumber >= NUM_BLOCKS) {
+        if (blockNumber < 0 || blockNumber >= NUM_BLOCKS) {
                 return false;
         }
 
@@ -98,8 +97,7 @@ public class MemoryManager {
 
         public int isBlockUsed(int blockNumber) {
 
-        if (blockNumber < 0 ||
-                blockNumber >= NUM_BLOCKS) {
+        if (blockNumber < 0 || blockNumber >= NUM_BLOCKS) {
                 return -1;
         }
 
@@ -111,7 +109,7 @@ public class MemoryManager {
         int bitPosition = blockNumber % 8;
         int offset = BITMAP_OFFSET + byteIndex;
 
-        return ((memory[offset] >> bitPosition) & 1) == 1;
+        return (memory[offset] >> bitPosition) & 1;
         }
 
         public int allocateBlock() {
@@ -123,7 +121,7 @@ public class MemoryManager {
         // Retourner le premier bloc libre.
         // Le marquer immédiatement comme utilisé.
         for (int i= 129; i < NUM_BLOCKS; i++) {
-                if(isBlockUsed(i)) {
+                if(isBlockUsed(i) == 0) {
                     setBlockUsed(i, true);
                     return i;
                 }
