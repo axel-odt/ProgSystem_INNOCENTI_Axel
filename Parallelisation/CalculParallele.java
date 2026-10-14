@@ -1,12 +1,26 @@
 public class CalculParrallele {
 
-    Calcule[] threads = new Calcule[DONNEES.length];
-
-    for (int i = 0; i < DONNEES.length; i++) {
-        
-    }
+    private static final int[] DONNEES = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+    private static final int MULTIPLICATEUR = 1000;
 
     public static void main(String[] args) {
-        Calcule th1 = new Calcule(DONNEES[]);
+        System.out.println("=== Calcul Parallele ===");
+        Calcule[] threads = new Calcule[DONNEES.length];
+
+        //bocle start
+        for (int i = 0; i < DONNEES.length; i++) {
+            Calcule[] threads = new Calcule[DONNEES.length];
+            threads[i] = new Calcule(DONNEES[i], MULTIPLICATEUR, 0)
+            threads[i].start();
+        }
+
+        //boucle join
+        for (int i = 0; i < DONNEES.length; i++) {
+            try {
+                threads[i].join();
+            } catch (InterruptedException e) {
+
+            }
+        }
     }
 }
