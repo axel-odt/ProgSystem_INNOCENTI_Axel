@@ -6,11 +6,10 @@ public class CalculParrallele {
     public static void main(String[] args) {
         System.out.println("=== Calcul Parallele ===");
         Calcule[] threads = new Calcule[DONNEES.length];
-
+        int somme = 0;
         //bocle start
         for (int i = 0; i < DONNEES.length; i++) {
-            Calcule[] threads = new Calcule[DONNEES.length];
-            threads[i] = new Calcule(DONNEES[i], MULTIPLICATEUR, 0)
+            threads[i] = new Calcule(DONNEES[i], MULTIPLICATEUR)
             threads[i].start();
         }
 
@@ -21,6 +20,7 @@ public class CalculParrallele {
             } catch (InterruptedException e) {
 
             }
+            somme += Calcul.getResultat();
         }
     }
 }

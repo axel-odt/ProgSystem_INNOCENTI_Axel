@@ -19,7 +19,7 @@ public class CalculSequentiel {
                                 // on pourrais aussi mettre un sleep
             }
 
-            sommeTotal += resultat;
+            sommeTotal += resultat;   // reduction
             System.out.println("Traitement de " + valeur + " terminé : " + resultat);
         }
 

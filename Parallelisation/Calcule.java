@@ -4,13 +4,11 @@ public class Calcule extends Thread {
 
     private int valeur;
     private int multiplicateur;
-    private int index;
     private int resultat;
 
-    public Calcule(int valeur, int multiplicateur, int index) {
+    public Calcule(int valeur, int multiplicateur) {
         this.valeur = valeur;
         this.multiplicateur = multiplicateur;
-        this.index = index;
     }
 
     @Override
@@ -18,15 +16,9 @@ public class Calcule extends Thread {
         for (int j = 0; j < multiplicateur; j++) {
             resultat += valeur * valeur + valeur;
         }
-        System.out.println("Traitement de " + valeur + " terminé : " + resultat);
     }
 
     public int getResultat() {
         return resultat;
-    }
-
-    public static void main(String[] args) {
-        Calcule th1 = new Calcule(DONNEES[0], 1000, 0);
-        th1.start();
     }
 }
