@@ -7,6 +7,8 @@ public class CalculParrallele {
         System.out.println("=== Calcul Parallele ===");
         Calcule[] threads = new Calcule[DONNEES.length];
         int somme = 0;
+        long debut = System.nanoTime();
+
         //bocle start
         for (int i = 0; i < DONNEES.length; i++) {
             threads[i] = new Calcule(DONNEES[i], MULTIPLICATEUR)
@@ -15,12 +17,17 @@ public class CalculParrallele {
 
         //boucle join
         for (int i = 0; i < DONNEES.length; i++) {
-            try {
+            try{
                 threads[i].join();
-            } catch (InterruptedException e) {
-
-            }
-            somme += Calcul.getResultat();
+                sommeTotal += threads[i].getResultat();
+                
+            }catch(InterruptedException e){
+                
+            }	
         }
+
+        long duree = (System.nanoTime() - debut) / 1_000_000;
+		System.out.println("Résultat total : " + sommeTotal);
+        System.out.println("Durée : " + duree + " ms");
     }
 }

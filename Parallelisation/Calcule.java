@@ -5,10 +5,12 @@ public class Calcule extends Thread {
     private int valeur;
     private int multiplicateur;
     private int resultat;
+    private int index;
 
     public Calcule(int valeur, int multiplicateur) {
         this.valeur = valeur;
         this.multiplicateur = multiplicateur;
+        this.index = index;
     }
 
     @Override
